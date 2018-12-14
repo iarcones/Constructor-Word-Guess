@@ -38,13 +38,25 @@ function startgame() {
 
 
     city = cities[Math.floor(Math.random() * cities.length)].toLocaleLowerCase();
-    // console.log(city);
+    // console.log("city: " + city);
 
     wordtoGuess = new Word;
 
     for (i = 0; i < city.length; i++) {
         wordtoGuess.lettersObjects.push(new Letter(city[i]));
     }
+
+    // console.log(wordtoGuess);
+
+    for (i=0; i < city.length; i++){
+
+        if (city[i]= " ") {
+            wordtoGuess.verify(" ");
+        }
+
+    }
+
+    // console.log(wordtoGuess);
 
     attempts = 6;
     lettersUsed = [];
