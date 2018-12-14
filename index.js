@@ -38,7 +38,6 @@ function startgame() {
 
 
     city = cities[Math.floor(Math.random() * cities.length)].toLocaleLowerCase();
-    // console.log("city: " + city);
 
     wordtoGuess = new Word;
 
@@ -46,7 +45,6 @@ function startgame() {
         wordtoGuess.lettersObjects.push(new Letter(city[i]));
     }
 
-    // console.log(wordtoGuess);
 
     for (i=0; i < city.length; i++){
 
@@ -56,7 +54,6 @@ function startgame() {
 
     }
 
-    // console.log(wordtoGuess);
 
     attempts = 6;
     lettersUsed = [];
