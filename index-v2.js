@@ -77,29 +77,55 @@ function askLetter() {
             {
                 type: "input",
                 message: "letter",
-                name: "item"
+                name: "item",
+                validate: function (item){
+                    
+                    if (item.length !== 1){
+                        console.log("Please click just one letter");
+        
+                        // // askLetter();
+                        // return;
+                    }
+                    else if (lettersUsed.indexOf(item) !== -1) {
+
+                        console.log("That letter was clicked before, try other letter. This are all the used letters: " + lettersUsed);
+        
+                        // askLetter();
+                        // return;
+                    }
+                    else if (alphabet.indexOf(response.item) === -1){
+                        console.log("Character not valid, click an alphabet letter");
+        
+                        // askLetter();
+                        // return;
+                        }  
+                }
+
+                // Implement validate: (Function) Receive the user input and answers hash. Should return true if the value is valid, and an error message (String) otherwise. If false is returned, a default error message is provided.
             },
         ])
         .then(function (response) {
 
-            if (lettersUsed.indexOf(response.item) !== -1) {
+            // if (lettersUsed.indexOf(response.item) !== -1) {
 
-                console.log("That letter was clicked before, try other letter. This are all the used letters: " + lettersUsed);
+            //     console.log("That letter was clicked before, try other letter. This are all the used letters: " + lettersUsed);
 
-                askLetter();
-                return;
-            }
-            else if (alphabet.indexOf(response.item) === -1){
-                console.log("Character not valid, click an alphabet letter");
+            //     askLetter();
+            //     return;
+            // }
+            // else if (alphabet.indexOf(response.item) === -1){
+            //     console.log("Character not valid, click an alphabet letter");
 
-                askLetter();
-                return;
-                }  
+            //     askLetter();
+            //     return;
+            //     }  
 
-            else {
-                lettersUsed.push(response.item);
-            }
+            // else {
+            //     lettersUsed.push(response.item);
+            // }
             
+            lettersUsed.push(response.item);
+
             previousDisplay = display;
             wordtoGuess.verify(response.item);
             display = wordtoGuess.print();

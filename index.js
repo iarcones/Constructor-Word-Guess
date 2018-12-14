@@ -82,7 +82,12 @@ function askLetter() {
         ])
         .then(function (response) {
 
-            if (lettersUsed.indexOf(response.item) !== -1) {
+            if (response.item.length !== 1){
+                console.log("Please click just one letter");
+                askLetter();
+                return;
+            }
+            else if (lettersUsed.indexOf(response.item) !== -1) {
 
                 console.log("That letter was clicked before, try other letter. This are all the used letters: " + lettersUsed);
 
