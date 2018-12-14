@@ -83,9 +83,17 @@ function askLetter() {
                 askLetter();
                 return;
             }
+            else if (alphabet.indexOf(response.item) === -1){
+                console.log("Character not valid, click an alphabet letter");
+
+                askLetter();
+                return;
+                }  
+
             else {
                 lettersUsed.push(response.item);
             }
+            
             previousDisplay = display;
             wordtoGuess.verify(response.item);
             display = wordtoGuess.print();

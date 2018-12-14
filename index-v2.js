@@ -7,13 +7,8 @@ var cities = ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Phila
 
 var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-// console.log(`
-//         o
-//         |      
-//        - -
-//         | 
-//        ] [
-//     `)
+
+
 
 console.log(`
 
@@ -57,7 +52,7 @@ function startgame() {
 
     display = wordtoGuess.print();
 
-    console.log(display);
+    console.log(display.split(""));     
 
     askLetter();
 }
@@ -82,9 +77,17 @@ function askLetter() {
                 askLetter();
                 return;
             }
+            else if (alphabet.indexOf(response.item) === -1){
+                console.log("Character not valid, click an alphabet letter");
+
+                askLetter();
+                return;
+                }  
+
             else {
                 lettersUsed.push(response.item);
             }
+            
             previousDisplay = display;
             wordtoGuess.verify(response.item);
             display = wordtoGuess.print();
@@ -101,7 +104,7 @@ function askLetter() {
                     gameEnded = true;
                 }
             }
-            console.log(display);
+            console.log(display.split(""));
 
             if (attempts > 0 && gameEnded === false) {
                 askLetter();
