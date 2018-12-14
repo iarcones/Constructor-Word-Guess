@@ -1,4 +1,3 @@
-
 var inquirer = require("inquirer");
 
 var Word = require("./word.js");
@@ -18,11 +17,9 @@ var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
 
 console.log(`
 
-  --------------------------------------  
-
+  --------------------------------------   
        WELCOME TO THE WORD GUEST GAME    
   UNITED STATES 50 MOST POPULATED CITIES  
-  
   --------------------------------------  
 
   `)
@@ -37,20 +34,25 @@ var wins = 0;
 var lost = 0;
 
 
-startgame();
+getWord();
 
 
-function startgame() {
+function getWord() {
 
 
     city = cities[Math.floor(Math.random() * cities.length)].toLocaleLowerCase();
-    // console.log(city);
+    console.log(city);
 
     wordtoGuess = new Word;
 
     for (i = 0; i < city.length; i++) {
         wordtoGuess.lettersObjects.push(new Letter(city[i]));
     }
+
+    startgame();
+}
+
+function startgame() {
 
     attempts = 6;
     lettersUsed = [];
@@ -61,8 +63,8 @@ function startgame() {
     console.log(display);
 
     askLetter();
-}
 
+}
 
 function askLetter() {
 
@@ -76,10 +78,10 @@ function askLetter() {
         ])
         .then(function (response) {
 
-            if (lettersUsed.indexOf(response.item) !== -1) {
-
+            if (lettersUsed.indexOf(response.item) !== -1){
+               
                 console.log("That letter was clicked before, try other letter. This are all the used letters: " + lettersUsed);
-
+                
                 askLetter();
                 return;
             }
@@ -92,7 +94,7 @@ function askLetter() {
 
             if (display === previousDisplay) {
                 attempts--;
-
+                
                 console.log("***** 😫 ******")
                 console.log("You have " + attempts + " attempts left. This are all the used letters: " + lettersUsed);
 
@@ -108,14 +110,14 @@ function askLetter() {
                 askLetter();
             }
             else if (gameEnded) {
-                console.log("\n" + "***** 👏🏻👏🏻👏🏻 👍🏻 ******")
-                console.log("Congrats you win" + "\n");
+                console.log("***** 👏🏻👏🏻👏🏻 👍🏻 ******")
+                console.log("Congrats you win");
                 wins++;
                 askUser();
             }
             else {
-                console.log("\n" + "***** 👎🏼👎🏼👎🏼 ******")
-                console.log("Sorry you lost" + "\n");
+                console.log("***** 👎🏼👎🏼👎🏼 ******")
+                console.log("Sorry you lost");
                 lost++;
                 askUser();
             }
@@ -123,24 +125,23 @@ function askLetter() {
 }
 
 function askUser() {
-    console.log("this are your stats: wins " + wins + " | lost " + lost  + "\n");
+    console.log("this are your stats: wins " + wins + " | lost " + lost );
     
-
     inquirer
-        .prompt([
-            {
-                type: "confirm",
-                message: "Do you want other word to guess?",
-                name: "confirm",
-                default: true
-            },
-        ])
-        .then(function (response) {
-            if (response.confirm) {
-                startgame();
-            }
-            else {
-                console.log("Bye bye, come back soon");
-            }
-        });
+    .prompt([
+        {
+            type: "confirm",
+            message: "Do you want other word to guess?",
+            name: "confirm",
+            default: true
+        },
+    ])
+    .then(function (response) {
+        if(response.confirm){
+            getWord();
+        }
+        else{ 
+            console.log("Bye bye, come back soon");
+        }
+    });
 }
