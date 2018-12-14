@@ -58,7 +58,7 @@ function startgame() {
 
     display = wordtoGuess.print();
 
-    console.log(display);
+    console.log(display.split(""));     
 
     askLetter();
 }
@@ -102,7 +102,7 @@ function askLetter() {
                     gameEnded = true;
                 }
             }
-            console.log(display);
+            console.log(display.split(""));
 
             if (attempts > 0 && gameEnded === false) {
                 askLetter();

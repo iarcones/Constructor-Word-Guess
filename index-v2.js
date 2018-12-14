@@ -1,10 +1,9 @@
-
 var inquirer = require("inquirer");
 
 var Word = require("./word.js");
 var Letter = require("./letter.js");
 
-var cities = ["NewYork", "LosAngeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "SanAntonio", "SanDiego", "Dallas", "SanJose", "Austin", "Jacksonville", "SanFrancisco", "Columbus", "FortWorth", "Indianapolis", "Charlotte", "Seattle", "Denver", "Washington", "Boston", "ElPaso", "Detroit", "Nashville", "Memphis", "Portland", "OklahomaCity", "LasVegas", "Louisville", "Baltimore", "Milwaukee", "Albuquerque", "Tucson", "Fresno", "Sacramento", "Mesa", "KansasCity", "Atlanta", "LongBeach", "Omaha", "Raleigh", "ColoradoSprings", "Miami", "VirginiaBeach", "Oakland", "Minneapolis", "Tulsa", "Arlington", "NewOrleans", "Wichita"];
+var cities = ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose", "Austin", "Jacksonville", "San Francisco", "Columbus", "FortWorth", "Indianapolis", "Charlotte", "Seattle", "Denver", "Washington", "Boston", "El Paso", "Detroit", "Nashville", "Memphis", "Portland", "Oklahoma City", "Las Vegas", "Louisville", "Baltimore", "Milwaukee", "Albuquerque", "Tucson", "Fresno", "Sacramento", "Mesa", "Kansas City", "Atlanta", "Long Beach", "Omaha", "Raleigh", "Colorado Springs", "Miami", "Virginia Beach", "Oakland", "Minneapolis", "Tulsa", "Arlington", "New Orleans", "Wichita"];
 
 var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
@@ -58,7 +57,7 @@ function startgame() {
 
     display = wordtoGuess.print();
 
-    console.log(display.split(""));     
+    console.log(display);
 
     askLetter();
 }
@@ -102,7 +101,7 @@ function askLetter() {
                     gameEnded = true;
                 }
             }
-            console.log(display.split(""));
+            console.log(display);
 
             if (attempts > 0 && gameEnded === false) {
                 askLetter();
