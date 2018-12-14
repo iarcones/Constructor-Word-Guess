@@ -11,14 +11,11 @@ var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
 
 
 console.log(`
-
   --------------------------------------  
-
        WELCOME TO THE WORD GUEST GAME    
   UNITED STATES 50 MOST POPULATED CITIES  
   
   --------------------------------------  
-
   `)
 
 var attempts = 6;
@@ -38,7 +35,7 @@ function startgame() {
 
 
     city = cities[Math.floor(Math.random() * cities.length)].toLocaleLowerCase();
-
+console.log(city);
     wordtoGuess = new Word;
 
     for (i = 0; i < city.length; i++) {
@@ -61,7 +58,7 @@ function startgame() {
 
     display = wordtoGuess.print();
 
-    console.log(display.split(""));     
+    console.log(display.split("").join(" "));    
 
     askLetter();
 }
@@ -118,7 +115,7 @@ function askLetter() {
                     gameEnded = true;
                 }
             }
-            console.log(display.split(""));
+            console.log(display.split("").join(" "));
 
             if (attempts > 0 && gameEnded === false) {
                 askLetter();

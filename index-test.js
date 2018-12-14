@@ -38,25 +38,20 @@ function startgame() {
 
 
     city = cities[Math.floor(Math.random() * cities.length)].toLocaleLowerCase();
-    // console.log("city: " + city);
 
     wordtoGuess = new Word;
 
     for (i = 0; i < city.length; i++) {
         wordtoGuess.lettersObjects.push(new Letter(city[i]));
-    }
 
-    // console.log(wordtoGuess);
-
-    for (i=0; i < city.length; i++){
-
-        if (city[i]= " ") {
+        if (city[i] = " ") {
             wordtoGuess.verify(" ");
         }
-
     }
 
-    // console.log(wordtoGuess);
+
+
+
 
     attempts = 6;
     lettersUsed = [];
@@ -64,7 +59,7 @@ function startgame() {
 
     display = wordtoGuess.print();
 
-    console.log(display.split(""));     
+    console.log(display.split("").join(" "));
 
     askLetter();
 }
@@ -77,54 +72,33 @@ function askLetter() {
             {
                 type: "input",
                 message: "letter",
-                name: "item",
-                validate: function (item){
-                    
-                    if (item.length !== 1){
-                        console.log("Please click just one letter");
-        
-                        // // askLetter();
-                        // return;
-                    }
-                    else if (lettersUsed.indexOf(item) !== -1) {
-
-                        console.log("That letter was clicked before, try other letter. This are all the used letters: " + lettersUsed);
-        
-                        // askLetter();
-                        // return;
-                    }
-                    else if (alphabet.indexOf(response.item) === -1){
-                        console.log("Character not valid, click an alphabet letter");
-        
-                        // askLetter();
-                        // return;
-                        }  
-                }
-
-                // Implement validate: (Function) Receive the user input and answers hash. Should return true if the value is valid, and an error message (String) otherwise. If false is returned, a default error message is provided.
+                name: "item"
             },
         ])
         .then(function (response) {
 
-            // if (lettersUsed.indexOf(response.item) !== -1) {
+            if (response.item.length !== 1) {
+                console.log("Please click just one letter");
+                askLetter();
+                return;
+            }
+            else if (lettersUsed.indexOf(response.item) !== -1) {
 
-            //     console.log("That letter was clicked before, try other letter. This are all the used letters: " + lettersUsed);
+                console.log("That letter was clicked before, try other letter. This are all the used letters: " + lettersUsed);
 
-            //     askLetter();
-            //     return;
-            // }
-            // else if (alphabet.indexOf(response.item) === -1){
-            //     console.log("Character not valid, click an alphabet letter");
+                askLetter();
+                return;
+            }
+            else if (alphabet.indexOf(response.item) === -1) {
+                console.log("Character not valid, click an alphabet letter");
 
-            //     askLetter();
-            //     return;
-            //     }  
+                askLetter();
+                return;
+            }
 
-            // else {
-            //     lettersUsed.push(response.item);
-            // }
-            
-            lettersUsed.push(response.item);
+            else {
+                lettersUsed.push(response.item);
+            }
 
             previousDisplay = display;
             wordtoGuess.verify(response.item);
@@ -142,7 +116,7 @@ function askLetter() {
                     gameEnded = true;
                 }
             }
-            console.log(display.split(""));
+            console.log(display.split("").join(" "));
 
             if (attempts > 0 && gameEnded === false) {
                 askLetter();
@@ -157,14 +131,15 @@ function askLetter() {
                 console.log("\n" + "***** 👎🏼👎🏼👎🏼 ******")
                 console.log("Sorry you lost" + "\n");
                 lost++;
-                askUser();
+                showTheWord();
+
             }
         });
 }
 
 function askUser() {
-    console.log("this are your stats: wins " + wins + " | lost " + lost  + "\n");
-    
+    console.log("this are your stats: wins " + wins + " | lost " + lost + "\n");
+
 
     inquirer
         .prompt([
@@ -184,3 +159,16 @@ function askUser() {
             }
         });
 }
+
+function showTheWord() {
+console.log(wordtoGuess);
+    for (i = 0; i < wordtoGuess.lettersObjects.length; i++) {
+        
+        wordtoGuess.lettersObjects[i].guessed = true
+    }
+
+    display = wordtoGuess.print();
+
+    askUser();
+}
+
