@@ -3,6 +3,10 @@
 Word Guess is a Node Game Application based on commands. 
 At this version we are trying to guess the United States 50 more populated cities.
 
+<p>
+  <img src="game.png" width="350" title="game">
+</p>
+
 ## Getting Started
 
 #### These instructions will get you a copy of the project up and running on your local machine.

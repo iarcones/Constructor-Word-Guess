@@ -10,7 +10,7 @@ var Word = function () {
     this.print = function () {
         var displayWord = "";
 
-        for (i = 0; i < this.lettersObjects.length; i++) {
+        for (var i = 0; i < this.lettersObjects.length; i++) {
 
             displayWord = displayWord.concat(this.lettersObjects[i].toString());
         }
@@ -19,7 +19,7 @@ var Word = function () {
     }
     this.verify = function (character) {
 
-        for (i = 0; i < this.lettersObjects.length; i++) {
+        for (var i = 0; i < this.lettersObjects.length; i++) {
             this.lettersObjects[i].guess(character);
         }
     }

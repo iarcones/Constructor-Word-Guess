@@ -7,17 +7,6 @@ var cities = ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Phila
 
 var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-
-
-
-console.log(`
-  --------------------------------------  
-       WELCOME TO THE WORD GUEST GAME    
-  UNITED STATES 50 MOST POPULATED CITIES  
-  
-  --------------------------------------  
-  `)
-
 var attempts = 6;
 var previousDisplay = "";
 var display = "";
@@ -27,38 +16,45 @@ var city = "";
 var wins = 0;
 var lost = 0;
 
+console.log(`
+
+  --------------------------------------  
+
+       WELCOME TO THE WORD GUEST GAME    
+  UNITED STATES 50 MOST POPULATED CITIES  
+  
+  --------------------------------------  
+
+  `)
+
 
 startgame();
 
 
 function startgame() {
 
+    cityDisplay= cities[Math.floor(Math.random() * cities.length)];
+    
+    cityDisplay = "San Francisco";
+    city = cityDisplay.toLowerCase();
 
-    city = cities[Math.floor(Math.random() * cities.length)].toLocaleLowerCase();
-console.log(city);
     wordtoGuess = new Word;
 
-    for (i = 0; i < city.length; i++) {
+    for (var i = 0; i < city.length; i++) {
         wordtoGuess.lettersObjects.push(new Letter(city[i]));
-    }
 
-
-    for (i=0; i < city.length; i++){
-
-        if (city[i]= " ") {
-            wordtoGuess.verify(" ");
+        if (city[i] === " ") {
+            wordtoGuess.lettersObjects[i].guessed = true;
         }
-
     }
-
 
     attempts = 6;
     lettersUsed = [];
     gameEnded = false;
-
+  
     display = wordtoGuess.print();
 
-    console.log(display.split("").join(" "));    
+    console.log(display.split("").join(" "));
 
     askLetter();
 }
@@ -76,7 +72,7 @@ function askLetter() {
         ])
         .then(function (response) {
 
-            if (response.item.length !== 1){
+            if (response.item.length !== 1) {
                 console.log("Please click just one letter");
                 askLetter();
                 return;
@@ -88,17 +84,17 @@ function askLetter() {
                 askLetter();
                 return;
             }
-            else if (alphabet.indexOf(response.item) === -1){
+            else if (alphabet.indexOf(response.item) === -1) {
                 console.log("Character not valid, click an alphabet letter");
 
                 askLetter();
                 return;
-                }  
+            }
 
             else {
                 lettersUsed.push(response.item);
             }
-            
+
             previousDisplay = display;
             wordtoGuess.verify(response.item);
             display = wordtoGuess.print();
@@ -127,17 +123,20 @@ function askLetter() {
                 askUser();
             }
             else {
-                console.log("\n" + "***** 👎🏼👎🏼👎🏼 ******")
-                console.log("Sorry you lost" + "\n");
+                console.log("\n" + "***** 👎🏼👎🏼👎🏼 ****************")
+                console.log("Sorry you lost");
+                console.log("The city name is: " + cityDisplay.toUpperCase());
+                console.log("\n" + "*****************************" + "\n");
                 lost++;
                 askUser();
+
             }
         });
 }
 
 function askUser() {
-    console.log("this are your stats: wins " + wins + " | lost " + lost  + "\n");
-    
+    console.log("this are your stats: wins " + wins + " | lost " + lost + "\n");
+
 
     inquirer
         .prompt([
