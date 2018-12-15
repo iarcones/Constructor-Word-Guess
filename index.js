@@ -34,8 +34,6 @@ startgame();
 function startgame() {
 
     cityDisplay= cities[Math.floor(Math.random() * cities.length)];
-    
-    cityDisplay = "San Francisco";
     city = cityDisplay.toLowerCase();
 
     wordtoGuess = new Word;
