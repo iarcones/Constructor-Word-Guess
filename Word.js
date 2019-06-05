@@ -1,7 +1,4 @@
-
 // console.log("uploaded word");
-var Letter = require("./Letter");
-
 
 var Word = function () {
 

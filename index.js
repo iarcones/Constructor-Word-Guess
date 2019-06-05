@@ -3,9 +3,9 @@ var inquirer = require("inquirer");
 var Word = require("./word.js");
 var Letter = require("./letter.js");
 
-var cities = ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose", "Austin", "Jacksonville", "San Francisco", "Columbus", "FortWorth", "Indianapolis", "Charlotte", "Seattle", "Denver", "Washington", "Boston", "El Paso", "Detroit", "Nashville", "Memphis", "Portland", "Oklahoma City", "Las Vegas", "Louisville", "Baltimore", "Milwaukee", "Albuquerque", "Tucson", "Fresno", "Sacramento", "Mesa", "Kansas City", "Atlanta", "Long Beach", "Omaha", "Raleigh", "Colorado Springs", "Miami", "Virginia Beach", "Oakland", "Minneapolis", "Tulsa", "Arlington", "New Orleans", "Wichita"];
+var cities = [ "New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose", "Austin", "Jacksonville", "San Francisco", "Columbus", "FortWorth", "Indianapolis", "Charlotte", "Seattle", "Denver", "Washington", "Boston", "El Paso", "Detroit", "Nashville", "Memphis", "Portland", "Oklahoma City", "Las Vegas", "Louisville", "Baltimore", "Milwaukee", "Albuquerque", "Tucson", "Fresno", "Sacramento", "Mesa", "Kansas City", "Atlanta", "Long Beach", "Omaha", "Raleigh", "Colorado Springs", "Miami", "Virginia Beach", "Oakland", "Minneapolis", "Tulsa", "Arlington", "New Orleans", "Wichita" ];
 
-var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+var alphabet = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ];
 
 var attempts = 6;
 var previousDisplay = "";
@@ -31,25 +31,25 @@ console.log(`
 startgame();
 
 
-function startgame() {
+function startgame () {
 
-    cityDisplay= cities[Math.floor(Math.random() * cities.length)];
+    cityDisplay = cities[ Math.floor(Math.random() * cities.length) ];
     city = cityDisplay.toLowerCase();
 
     wordtoGuess = new Word;
 
     for (var i = 0; i < city.length; i++) {
-        wordtoGuess.lettersObjects.push(new Letter(city[i]));
+        wordtoGuess.lettersObjects.push(new Letter(city[ i ]));
 
-        if (city[i] === " ") {
-            wordtoGuess.lettersObjects[i].guessed = true;
+        if (city[ i ] === " ") {
+            wordtoGuess.lettersObjects[ i ].guessed = true;
         }
     }
-
+    console.log(wordtoGuess)
     attempts = 6;
     lettersUsed = [];
     gameEnded = false;
-  
+
     display = wordtoGuess.print();
 
     console.log(display.split("").join(" "));
@@ -58,7 +58,7 @@ function startgame() {
 }
 
 
-function askLetter() {
+function askLetter () {
 
     inquirer
         .prompt([
@@ -69,30 +69,24 @@ function askLetter() {
             },
         ])
         .then(function (response) {
-
-            if (response.item.length !== 1) {
+              var input = response.item.toLowerCase()
+              var patt = /[a-z]/gi;
+              var verify = input.match(patt);
+              if (!verify){
                 console.log("Please click just one letter");
                 askLetter();
                 return;
-            }
-            else if (lettersUsed.indexOf(response.item) !== -1) {
+              }
 
-                console.log("That letter was clicked before, try other letter. This are all the used letters: " + lettersUsed);
+           if (lettersUsed.indexOf(input) !== -1) {
 
-                askLetter();
-                return;
-            }
-            else if (alphabet.indexOf(response.item) === -1) {
-                console.log("Character not valid, click an alphabet letter");
+                console.log("That letter was clicked before, try other letter. Used letters: " + lettersUsed);
 
                 askLetter();
                 return;
             }
-
-            else {
-                lettersUsed.push(response.item);
-            }
-
+    
+            lettersUsed.push(response.item);
             previousDisplay = display;
             wordtoGuess.verify(response.item);
             display = wordtoGuess.print();
@@ -101,8 +95,7 @@ function askLetter() {
                 attempts--;
 
                 console.log("***** 😫 ******")
-                console.log("You have " + attempts + " attempts left. This are all the used letters: " + lettersUsed);
-
+                console.log("You have " + attempts + " attempts left. Used letters: " + lettersUsed);
             }
             else {
                 if (display === city) {
@@ -113,8 +106,9 @@ function askLetter() {
 
             if (attempts > 0 && gameEnded === false) {
                 askLetter();
+                return;
             }
-            else if (gameEnded) {
+            if (gameEnded) {
                 console.log("\n" + "***** 👏🏻👏🏻👏🏻 👍🏻 ******")
                 console.log("Congrats you win" + "\n");
                 wins++;
@@ -123,7 +117,7 @@ function askLetter() {
             else {
                 console.log("\n" + "***** 👎🏼👎🏼👎🏼 ****************")
                 console.log("Sorry you lost");
-                console.log("The city name is: " + cityDisplay.toUpperCase());
+                console.log("The city name is: " + cityDisplay);
                 console.log("\n" + "*****************************" + "\n");
                 lost++;
                 askUser();
@@ -132,8 +126,8 @@ function askLetter() {
         });
 }
 
-function askUser() {
-    console.log("this are your stats: wins " + wins + " | lost " + lost + "\n");
+function askUser () {
+    console.log("Your stats: wins " + wins + " | lost " + lost + "\n");
 
 
     inquirer
