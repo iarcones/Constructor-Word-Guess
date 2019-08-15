@@ -1,30 +1,25 @@
+const Letter = function(char){
 
-// console.log("uploaded Letter");
-
-var Letter = function (str) {
-
-    this.character = str;
+    this.char = char;
     this.guessed = false;
 
-    this.toString = function(){
-   
-        if (this.guessed){  
-            return this.character;
+    this.show = function(){
+        if (this.guessed){
+            return this.char
         }
-        else{
-            return "_";
+        else {
+            return "_"
+        }
+    }
+    this.guess = function(str){
+        if (this.char === str){
+            this.guessed = true
+
+            // this is not clear in the instructions but need to have a way to verify that the letter was found or not to show a message to the user
+            return true
         }
     }
 
-    this.guess = function(letterClicked){
-            if (letterClicked === this.character){
-                 this.guessed = true;
-             
-            }
-        }
-    }
+}
 
 module.exports = Letter;
-
-
-

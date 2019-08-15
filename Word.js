@@ -1,26 +1,32 @@
-// console.log("uploaded word");
+const Letter = require("./letter");
 
-var Word = function () {
 
-    this.lettersObjects = [];
+const Word = function(randomword){
 
-    this.print = function () {
-        var displayWord = "";
+    // this is not clear in the assigment instructions, the way to fill the array
 
-        for (var i = 0; i < this.lettersObjects.length; i++) {
+    this.wordArray = randomword.split("").map(letter => {return new Letter(letter)})
+    this.word = randomword
+    this.guessleft = 10
+    this.lettersclicked = []
 
-            displayWord = displayWord.concat(this.lettersObjects[i].toString());
-        }
-        return displayWord;
+    this.display = function(){
+        let dispWord = ""
+        this.wordArray.map(letter => {
+            dispWord += letter.show(letter.char)
+        })
+    
+        return dispWord.split("").join(" ");
 
     }
-    this.verify = function (character) {
-
-        for (var i = 0; i < this.lettersObjects.length; i++) {
-            this.lettersObjects[i].guess(character);
-        }
+    this.verify = function(str){
+        let foundYorN = false
+        this.wordArray.map(letter => {
+            if(letter.guess(str)){foundYorN = true}
+        })
+        return foundYorN
     }
+    
 }
-
 
 module.exports = Word;
